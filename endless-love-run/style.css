@@ -1,0 +1,204 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    overflow: hidden;
+    background-color: #000;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+    /* Tam ekran mobil için */
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+
+#game-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+}
+
+/* ------- HUD (Skor, Kalp, Can) ------- */
+#ui-container {
+    position: absolute;
+    top: 12px;
+    left: 14px;
+    font-size: 20px;
+    font-weight: bold;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+    z-index: 10;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* ------- HIDDEN ------- */
+.hidden {
+    display: none !important;
+}
+
+/* ------- BAŞLANGIÇ & OYUN BİTTİ EKRANLARI ------- */
+#game-over-screen,
+#start-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 20;
+    background-color: rgba(0, 0, 0, 0.78);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    pointer-events: auto;
+    padding: 20px;
+}
+
+h1 {
+    font-size: clamp(28px, 6vw, 52px);
+    margin-bottom: 14px;
+    color: #ff4757;
+    text-shadow: 0 0 16px rgba(255, 71, 87, 0.6);
+    text-align: center;
+}
+
+p {
+    font-size: clamp(14px, 3vw, 20px);
+    margin-bottom: 20px;
+    text-align: center;
+    max-width: 85%;
+    line-height: 1.5;
+}
+
+/* ------- KARAKTER YÜKLEME ------- */
+#custom-character-loader {
+    background: rgba(255, 255, 255, 0.08);
+    padding: 16px 20px;
+    border-radius: 16px;
+    margin-bottom: 24px;
+    backdrop-filter: blur(6px);
+    width: 90%;
+    max-width: 460px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+#custom-character-loader h3 {
+    margin-bottom: 12px;
+    color: #f1c40f;
+    text-align: center;
+    font-size: clamp(13px, 2.5vw, 17px);
+}
+
+.upload-group {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    padding-bottom: 8px;
+    font-size: clamp(12px, 2.2vw, 15px);
+}
+
+.upload-group:last-child {
+    border-bottom: none;
+}
+
+/* ------- BUTONLAR ------- */
+button {
+    padding: 14px 36px;
+    font-size: clamp(16px, 3.5vw, 22px);
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(45deg, #ff4757, #ff6b81);
+    border: none;
+    border-radius: 36px;
+    cursor: pointer;
+    box-shadow: 0 5px 18px rgba(255, 71, 87, 0.45);
+    transition: transform 0.15s, box-shadow 0.15s;
+    touch-action: manipulation;
+}
+
+button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 24px rgba(255, 71, 87, 0.6);
+}
+
+button:active {
+    transform: scale(0.94);
+}
+
+/* ------- MOBİL KONTROL BUTONLARI ------- */
+#mobile-controls {
+    position: absolute;
+    bottom: 24px;
+    left: 0;
+    width: 100%;
+    z-index: 15;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 28px;
+    pointer-events: none;
+    /* sadece butonlar tıklanabilir */
+}
+
+#btn-jump,
+#btn-slide {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    font-size: 28px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
+    opacity: 0.85;
+    background: linear-gradient(135deg, rgba(232, 67, 147, 0.85), rgba(9, 132, 227, 0.85));
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+#btn-jump {
+    background: linear-gradient(135deg, rgba(46, 213, 115, 0.88), rgba(9, 132, 227, 0.88));
+}
+
+#btn-slide {
+    background: linear-gradient(135deg, rgba(232, 67, 147, 0.88), rgba(253, 203, 110, 0.88));
+}
+
+#btn-jump:active,
+#btn-slide:active {
+    transform: scale(0.88);
+    opacity: 1;
+}
+
+/* Tablet / geniş ekran için butonları biraz büyüt */
+@media (min-width: 768px) {
+
+    #btn-jump,
+    #btn-slide {
+        width: 90px;
+        height: 90px;
+        font-size: 32px;
+    }
+
+    #ui-container {
+        font-size: 24px;
+    }
+}
