@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#e84393">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Endless Run">
+    <meta name="description" content="Koş, zıpla, eğil! Sonsuz engelli koşu oyunu.">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icon-512.png">
+    <title>Bizim Evrene Doğru</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Oyun Alanı -->
+    <div id="game-container"></div>
+
+    <!-- Arayüz -->
+    <div id="ui-container">
+        <div id="score-container">Skor: <span id="score">0</span></div>
+        <div id="lives-container">❤️ <span id="hearts">0</span>/10 &nbsp; 🛡️ <span id="lives">0</span></div>
+    </div>
+
+    <!-- Oyun Bitti -->
+    <div id="game-over-screen" class="hidden">
+        <h1>OYUN BİTTİ</h1>
+        <p>Skorun: <span id="final-score">0</span></p>
+        <button id="restart-button">Tekrar Oyna</button>
+    </div>
+
+    <!-- Başlangıç Ekranı -->
+    <div id="start-screen">
+        <h1>Bizim Evrene Doğru</h1>
+        <p>Zıplamak için <strong>Yukarı Kaydır</strong>, Eğilmek için <strong>Aşağı Kaydır</strong></p>
+
+        <div id="custom-character-loader">
+            <h3>Kendi Karakterini Yükle (Şeffaf PNG)</h3>
+            <div class="upload-group">
+                <label>🏃 Koşma: <input type="file" id="upload-run" accept="image/*"></label>
+            </div>
+            <div class="upload-group">
+                <label>⬆️ Zıplama: <input type="file" id="upload-jump" accept="image/*"></label>
+            </div>
+            <div class="upload-group">
+                <label>⬇️ Eğilme: <input type="file" id="upload-slide" accept="image/*"></label>
+            </div>
+        </div>
+
+        <button id="start-button">🎮 Oyuna Başla</button>
+    </div>
+
+    <!-- Mobil Kontrol Butonları (Oyun sırasında görünür) -->
+    <div id="mobile-controls" class="hidden">
+        <button id="btn-slide" ontouchstart="mobileSlide()" onmousedown="mobileSlide()">⬇️</button>
+        <button id="btn-jump" ontouchstart="mobileJump()" onmousedown="mobileJump()">⬆️</button>
+    </div>
+
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="main.js"></script>
+    <script>
+        // Service Worker kaydı (PWA için)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('SW kayıtlı:', reg.scope))
+                    .catch(err => console.log('SW hatası:', err));
+            });
+        }
+
+        // Mobil buton fonksiyonları (main.js'deki doJump/doSlide'ı çağırır)
+        function mobileJump() { if (typeof doJump === 'function') doJump(); }
+        function mobileSlide() { if (typeof doSlide === 'function') doSlide(); }
+    </script>
+</body>
+
+</html>
